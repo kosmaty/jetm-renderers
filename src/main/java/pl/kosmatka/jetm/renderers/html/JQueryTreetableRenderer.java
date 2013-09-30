@@ -15,6 +15,11 @@ public class JQueryTreetableRenderer implements MeasurementRenderer {
 		Collection<Aggregate> aggregates = points.values();
 		StringBuilder builder = new StringBuilder();
 		builder.append("<table id='jetm_result'>\n");
+		builder.append("<caption>");
+		builder.append("<a href='#' onclick=\"jQuery('#jetm_result').treetable('expandAll'); return false;\">Expand all</a>");
+		builder.append("<a href=\"#\" onclick=\"jQuery('#jetm_result').treetable('collapseAll'); return false;\">Collapse all</a>");
+		builder.append("</caption>");
+
 		builder.append("<thead>\n");
 		builder.append("<tr>\n");
 		builder.append("<th>Measurement Point</th>\n");
@@ -94,7 +99,13 @@ public class JQueryTreetableRenderer implements MeasurementRenderer {
 		builder.append("<script src='http://code.jquery.com/jquery-1.10.2.min.js'></script>\n");
 		builder.append("<script src='http://code.jquery.com/ui/1.10.3/jquery-ui.min.js'></script>\n");
 		builder.append("<script src='http://ludo.cubicphuse.nl/jquery-treetable/javascripts/src/jquery.treetable.js'></script>\n");
-		builder.append("<script>$('#jetm_result').treetable({expandable: true});</script>\n");
+		builder.append("<script>");
+		builder.append("$('#jetm_result').treetable({expandable: true});\n");
+		builder.append("$('#jetm_result tbody').on('mousedown', 'tr', function() {\n");
+		builder.append("$('.selected').not(this).removeClass('selected');\n");
+		builder.append("$(this).toggleClass('selected');\n");
+		builder.append("});");
+		builder.append("</script>\n");
 		builder.append("</body>\n");
 		builder.append("</html>\n");
 
